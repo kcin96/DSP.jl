@@ -43,20 +43,20 @@ Suppose a signal ``x(t)=2e^{j2\\pi(2500)t} + 5e^{j2\\pi(400)t}`` is corrupted by
 to retrieve the frequencies in the signal. Let the sampling frequency be ``8kHz``.
 
 ```@example
-julia> Fs = 8000;                 #sampling frequency (Hz)
-julia> true_freq = [2500 400];    #true frequencies (Hz)
-julia> t = collect(1:Fs)/Fs;      #time vector
-julia> x = 2exp.(1im*2π*true_freq[1]*t) + 5exp.(1im*2π*true_freq[2]*t); #original signal x
+julia> Fs = 8000;                 # sampling frequency (Hz)
+julia> true_freq = [2500 400];    # true frequencies (Hz)
+julia> t = collect(1:Fs)/Fs;      # time vector
+julia> x = 2exp.(1im*2π*true_freq[1]*t) + 5exp.(1im*2π*true_freq[2]*t); # original signal x
 ```
 Add gaussian noise in complex form to the signal ``x`` to mimic noise corruption.
 ```@example
-julia> noise = randn(Fs, 2)*[1; 1im];    #complex random noise 
-julia> x += noise;                       #add noise to signal x
+julia> noise = randn(Fs, 2)*[1; 1im];    # complex random noise 
+julia> x += noise;                       # add noise to signal x
 ```
 Run the ESPRIT algorithm to retrieve approximate frequencies.
 ```@example
-julia> M = 5;    #window length of 5
-julia> p = 2;    #2 frequencies to estimate
+julia> M = 5;    # window length of 5
+julia> p = 2;    # 2 frequencies to estimate
 julia> esprit(x, M, p, Fs)
 2-element Vector{Float64}:
 2502.2704154274957
